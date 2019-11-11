@@ -76,9 +76,9 @@ void drawVariable(std::unique_ptr<Group>const&group,vars::Vars &vars,ImguiLimits
       auto it = e->valueToIndex.find(val);
       int32_t idx = 0;
       if(it != std::end(e->valueToIndex))
-        idx = e->valueToIndex.at(val);
+        idx = (int32_t)e->valueToIndex.at(val);
 
-      change = ImGui::ListBox(n.c_str(), (int32_t*)&idx, names.data(), names.size(), 4);
+      change = ImGui::ListBox(n.c_str(), (int32_t*)&idx, names.data(), (int32_t)names.size(), 4);
       val = e->values.at(idx);
     }else{
       change = ImGui::DragScalar(n.c_str(),ImGuiDataType_S32,(int32_t*)vars.get(fn),1);
@@ -86,7 +86,7 @@ void drawVariable(std::unique_ptr<Group>const&group,vars::Vars &vars,ImguiLimits
   }
 #define DRAG_SCALAR(TYPE,ENUM)\
     if(lim){\
-      change = ImGui::DragScalar(n.c_str(),ENUM,(TYPE*)vars.get(fn),lim->step,&lim->minValue,&lim->maxValue);\
+      change = ImGui::DragScalar(n.c_str(),ENUM,(TYPE*)vars.get(fn),(float)lim->step,&lim->minValue,&lim->maxValue);\
     }else\
       change = ImGui::DragScalar(n.c_str(),ENUM,(TYPE*)vars.get(fn),1)
 
@@ -145,7 +145,9 @@ void drawVariable(std::unique_ptr<Group>const&group,vars::Vars &vars,ImguiLimits
     auto const maxV = [](size_t i,size_t j){if(i>j)return i;return j;};
     auto const size = maxV(str.length()*2,256);
     auto buf = new char[size];
-    std::strcpy(buf,str.c_str());
+	for (size_t i = 0; i < str.length(); ++i)
+		buf[i] = str[i];
+	buf[str.length()] = '\0';
     change = ImGui::InputText(n.c_str(),buf,size);
     str = buf;
     delete[]buf;
