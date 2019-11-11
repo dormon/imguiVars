@@ -7,6 +7,7 @@
 #include <memory>
 #include <set>
 #include <typeindex>
+#include <imguiVars/imguivars_export.h>
 
 static constexpr char const* imguiLimitsVariable = "___varsLimits";
 
@@ -85,27 +86,27 @@ class ImguiLimits{
 };
 
 
-void addVarsLimitsF(vars::Vars&        vars,
+IMGUIVARS_EXPORT void addVarsLimitsF(vars::Vars&        vars,
                std::string const& name,
                float              mmin = -1e38,
                float              mmax = +1e38,
                float              step = 1.f);
-void addVarsLimitsU(vars::Vars&        vars,
+IMGUIVARS_EXPORT void addVarsLimitsU(vars::Vars&        vars,
                std::string const& name,
                uint32_t           mmin = 0,
                uint32_t           mmax = 0xffffffff,
                uint32_t           step = 1);
-void addVarsLimits2F(vars::Vars&        vars,
+IMGUIVARS_EXPORT void addVarsLimits2F(vars::Vars&        vars,
                std::string const& name,
                float              mmin = -1e38,
                float              mmax = +1e38,
                float              step = 1.f);
-void addVarsLimits3F(vars::Vars&        vars,
+IMGUIVARS_EXPORT void addVarsLimits3F(vars::Vars&        vars,
                std::string const& name,
                float              mmin = -1e38,
                float              mmax = +1e38,
                float              step = 1.f);
-void addVarsLimits4F(vars::Vars&        vars,
+IMGUIVARS_EXPORT void addVarsLimits4F(vars::Vars&        vars,
                std::string const& name,
                float              mmin = -1e38,
                float              mmax = +1e38,
@@ -120,5 +121,5 @@ void addEnumValues(
   lim->setEnum<ENUM>(values,names);
 }
 
-void hide(vars::Vars&vars,std::string const&n);
-void show(vars::Vars&vars,std::string const&n);
+IMGUIVARS_EXPORT void hide(vars::Vars&vars,std::string const&n);
+IMGUIVARS_EXPORT void show(vars::Vars&vars,std::string const&n);
